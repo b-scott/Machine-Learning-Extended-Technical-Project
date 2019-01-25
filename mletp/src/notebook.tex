@@ -280,9 +280,13 @@
     
 
     
-    CSC8635 Machine Learning Extended Technical Report
+    \hypertarget{csc8635-machine-learning-extended-technical-report}{%
+\section{CSC8635 Machine Learning Extended Technical
+Report}\label{csc8635-machine-learning-extended-technical-report}}
 
-What is the need for the project?
+\hypertarget{what-is-the-need-for-the-project}{%
+\subsection{What is the need for the
+project?}\label{what-is-the-need-for-the-project}}
 
 `Training of neural networks for automated diagnosis of pigmented skin
 lesions is hampered by the small size and lack of diversity of available
@@ -298,13 +302,14 @@ algorithms' (Caruana and Niculescu-Mizil, 2006). Machine learning
 comparisons are few and far between. In comparison with the small work
 put towards datsets in this domain, I believe that a comparison of
 machine learning technologies in this area would prove useful in
-automating skin cancer diagnosis. `I am using the paper 'An empirical
-comparison of supervised learning algorithms' as a basis for the
-comparison, and while the paper provides a much more detailed comparison
-than I am likely to need it still provides a solid background and good
-practises to follow for the comparison.
+automating skin cancer diagnosis with dermatoscopic images. `I am using
+the paper 'An empirical comparison of supervised learning algorithms' as
+a basis for the comparison, and while the paper provides a much more
+detailed comparison than I am likely to need it still provides a solid
+background and good practises to follow for the comparison.
 
-    What did I do?
+    \hypertarget{what-did-i-do}{%
+\subsection{What did I do?}\label{what-did-i-do}}
 
 In order to help achieve success in this project, a methodology was
 needed to follow a clear structure. KDD was decided as a suitable
@@ -325,7 +330,9 @@ this particular instance, I compared a custom built Convolutional Neural
 Network and a Virtual Geometry Group (VGG) pre-defined neural network
 (Simonyan and Zisserman, 2014).
 
-    Learning the Application Domain
+    \hypertarget{learning-the-application-domain}{%
+\subsubsection{Learning the Application
+Domain}\label{learning-the-application-domain}}
 
 In order to understand the domain and the datasets of the project, I
 found it useful to read the paper from the developers of the dataset
@@ -347,7 +354,9 @@ time of writing the paper there were no models for dermatoscopic images,
 and at the time of writing the report there are very few working models
 of which the validity of the results is questionable.
 
-    Sources used to help produce code
+    \hypertarget{sources-used-to-help-produce-code}{%
+\subsubsection{Sources used to help produce
+code}\label{sources-used-to-help-produce-code}}
 
 https://www.kaggle.com/kmader/dermatology-mnist-loading-and-processing
 
@@ -690,7 +699,8 @@ None
 \end{Verbatim}
 
 
-    Plotting the Data
+    \hypertarget{plotting-the-data}{%
+\paragraph{Plotting the Data}\label{plotting-the-data}}
 
 Data was plotted to allow further exploration in the dataset as well as
 giving the oppurtunity to spot any patterns that the dataset may
@@ -835,13 +845,17 @@ people under the age of 20 included in the dataset.
     \end{center}
     { \hspace*{\fill} \\}
     
-    Data Reduction and Projection
+    \hypertarget{data-reduction-and-projection}{%
+\subsubsection{Data Reduction and
+Projection}\label{data-reduction-and-projection}}
 
 As neural networks are a natural choice for images and models excel
 without extracting the features, the metadata was not included for the
 final model and only the images were used.
 
-Choosing Function of Data Mining
+\hypertarget{choosing-function-of-data-mining}{%
+\subsubsection{Choosing Function of Data
+Mining}\label{choosing-function-of-data-mining}}
 
 Using the background reading, it was clear that this is a classification
 problem and that the models should predict the cell type, similarly to
@@ -849,19 +863,24 @@ the old artificial neural network discussed in the `Learning the
 application domain' section. The models will essentially be an expansion
 on that, with five more cell types.
 
-Choosing the data mining algorithm
+\hypertarget{choosing-the-data-mining-algorithm}{%
+\subsubsection{Choosing the data mining
+algorithm}\label{choosing-the-data-mining-algorithm}}
 
 I have decided that CNN and VGG will be a natural fit for this project,
 as they are both convolutional neural networks which are a natural
 solution for image classification, and it allows me to compare a custom
 built model with a pre-defined model.
 
-Data mining
+\hypertarget{data-mining}{%
+\subsubsection{Data mining}\label{data-mining}}
 
 The data mining process is discussed in depth throughout the discussion
 of the models:
 
-    Convolutional Neural Network
+    \hypertarget{convolutional-neural-network}{%
+\subsubsection{Convolutional Neural
+Network}\label{convolutional-neural-network}}
 
 CNNs are based upon neural networks in that they are based upon neurons.
 However, they differ from neural networks by taking in a multi chaneled
@@ -1305,7 +1324,8 @@ As there is a significantly higher amount of Melanocytic Nevi than any
 other cell, the machine gets into the habit of only predicting these
 values, which likely explains the high loss experienced in the model.
 
-    VGG Neural Network
+    \hypertarget{vgg-neural-network}{%
+\subsubsection{VGG Neural Network}\label{vgg-neural-network}}
 
 The VGG Neural Network is a pre-defined neural network which was
 developed by 2 Oxford Students for a neural network competition, and
@@ -1678,7 +1698,8 @@ explored in future projects.
 CNN, and also suggests that the model is overfitted, potentially giving
 an explanation for the results that were gathered.
 
-    Interpretation
+    \hypertarget{interpretation}{%
+\subsubsection{Interpretation}\label{interpretation}}
 
 While it is likely that the results are not accurate, a comparison will
 still be made with the assumption that the results are `correct'. Only
@@ -1696,7 +1717,9 @@ much faster run times. However, to reiterate, it is likely that the
 models are not working as intended and these results should be treated
 cautiously.
 
-    How Successful was my Project?
+    \hypertarget{how-successful-was-my-project}{%
+\subsection{How Successful was my
+Project?}\label{how-successful-was-my-project}}
 
 While a conclusion was met that satisfied the initial goal, the project
 may be deemed as unsuccesful as the models are likely not functioning as
@@ -1726,7 +1749,8 @@ the `most efficient' model is found, it could potentially be used in
 place of diagnosing by eye providing automated and fast diagnoses for
 dermatoscopic images.
 
-    Reflection
+    \hypertarget{reflection}{%
+\subsection{Reflection}\label{reflection}}
 
 This project also introduced me to many new technologies, which has been
 a pleasure. As this was my first large project with python, it was nice
@@ -1775,7 +1799,8 @@ skills and abilities, it also led to the original goal not being met.
 Therefore, rather than taking on a whole new area at once, it may be
 wise to approach a project with more caution.
 
-    References
+    \hypertarget{references}{%
+\section{References}\label{references}}
 
 Tschandl, P., Rosendahl, C. and Kittler, H. (2018). The HAM10000
 dataset, a large collection of multi-source dermatoscopic images of
