@@ -1,0 +1,1823 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{MachineLearningCode}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    CSC8635 Machine Learning Extended Technical Report
+
+What is the need for the project?
+
+`Training of neural networks for automated diagnosis of pigmented skin
+lesions is hampered by the small size and lack of diversity of available
+datasets of dermatoscopic images.' (Tschandl, Rosendahl and Kittler,
+2018). In this project, I will be exploring two machine learning models
+and running a comparison between them in order to choose the more
+suitable model for the project domain. As there is such `a small size
+and lack of diversity' of datasets surrounding this area, the project
+will provide good groundwork for future projects to base off of.
+
+`There are few comprehensive empirical studies comparing learning
+algorithms' (Caruana and Niculescu-Mizil, 2006). Machine learning
+comparisons are few and far between. In comparison with the small work
+put towards datsets in this domain, I believe that a comparison of
+machine learning technologies in this area would prove useful in
+automating skin cancer diagnosis. `I am using the paper 'An empirical
+comparison of supervised learning algorithms' as a basis for the
+comparison, and while the paper provides a much more detailed comparison
+than I am likely to need it still provides a solid background and good
+practises to follow for the comparison.
+
+    What did I do?
+
+In order to help achieve success in this project, a methodology was
+needed to follow a clear structure. KDD was decided as a suitable
+methodology for this project, as a large portion of the methodology is
+dedicated to data minining i.e.~machine learning in this case.
+
+Cookie Cutter was used to help structure the project in a reproducable
+format as well as providing ease of use for navigating around the
+directory. A cookie cutter build for data science was found that was
+excellent for the project at hand, and therefore used (Medium, 2019).
+
+GitHub was used for version control and also allowed for backups in case
+of unforeseen errors.
+
+Due to the limited time availible for the project and often massive
+runtimes of each model, only a two models were able to be compared. In
+this particular instance, I compared a custom built Convolutional Neural
+Network and a Virtual Geometry Group (VGG) pre-defined neural network
+(Simonyan and Zisserman, 2014).
+
+    Learning the Application Domain
+
+In order to understand the domain and the datasets of the project, I
+found it useful to read the paper from the developers of the dataset
+itself, `The HAM10000dataset, a large collection of multi-source
+dermatoscopic images of common pigmented skin lesions' (Tschandl,
+Rosendahl and Kittler, 2018).
+
+While an artificial neural network was already built to differentiate
+between melanomas and melanocytic nevi, there was a lack of data for
+both of these cell types and others.
+
+The original datasets used to generate the datasets for this project
+were discovered to have bias towards melanocytic lesions, which is
+explored in my own project when plotting the dataset in the `Plotting
+the Data' section.
+
+While there do exists multi-class predictions for skin diseases, at the
+time of writing the paper there were no models for dermatoscopic images,
+and at the time of writing the report there are very few working models
+of which the validity of the results is questionable.
+
+    Sources used to help produce code
+
+https://www.kaggle.com/kmader/dermatology-mnist-loading-and-processing
+
+https://www.kaggle.com/sid321axn/step-wise-approach-cnn-model-77-0344-accuracy?fbclid=IwAR2JWtc6\_nC3PZwfg5THA1qjTx1qaLc6NllbXIAftRkZQu\_AnQ6VMgaDsIs
+
+https://engmrk.com/vgg16-implementation-using-keras/
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} import libraries}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{glob} \PY{k}{import} \PY{n}{glob}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{np\PYZus{}utils} \PY{k}{import} \PY{n}{to\PYZus{}categorical}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Dropout}\PY{p}{,} \PY{n}{Flatten}\PY{p}{,} \PY{n}{Conv2D}\PY{p}{,} \PY{n}{MaxPool2D}\PY{p}{,} \PY{n}{BatchNormalization}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{Adam}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k}{import} \PY{n}{ReduceLROnPlateau}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k}{import} \PY{n}{ImageDataGenerator}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+        \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{applications}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{MaxPooling2D}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} get working directory}
+        \PY{n}{cwd} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{cwd}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}b5034806\textbackslash{}Documents\textbackslash{}Machine-Learning-Extended-Technical-Project\textbackslash{}mletp\textbackslash{}src
+
+    \end{Verbatim}
+
+    Due to the nature of the document, it is not possible to associate every
+KDD step with the associated code, so some steps may be out of place but
+all relevant information is covered at some point in the report. I have
+aimed to include each step at the point where it was first used.
+
+Creating a Target Dataset
+
+As the dataset is quite large and the machine learning models can be
+very demanding in terms of resources, it is important that only relevant
+data was used. The metadata was used for the exploratory data analysis
+process, but ultimately only the images were used for the machine
+learning process itself. The source location
+
+Data Cleaning and Preprocessing
+
+While it was initially thought that there would be a large amount of
+data cleaning and preprocessing, after accelerating past this step it
+was noticed that data cleaning was mostly unneccesary for the project,
+as explained later in the report. While it was useful to understand the
+dataset further, problems like this highlight the issues of KDD.
+
+Relevant data cleaning is discussed later in the discussion for the
+models.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} change working directory to import data}
+        \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Users}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b5034806}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Documents}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Machine\PYZhy{}Learning\PYZhy{}Extended\PYZhy{}Technical\PYZhy{}Project}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mletp}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{metadata\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HAM10000\PYZus{}metadata.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Image paths were assigned to the metadata dataframe in order to provide
+a `merge' and connect the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} dictionary for image paths}
+        \PY{n}{imageid\PYZus{}path\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{splitext}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{basename}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{n}{x}
+                             \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{glob}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} change working directory back}
+        \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Users}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b5034806}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Documents}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Machine\PYZhy{}Learning\PYZhy{}Extended\PYZhy{}Technical\PYZhy{}Project}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mletp}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{src}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    A dictionary was produced for readability during the exploratory data
+analysis phase and general ease of use throughout the process.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} dictionary to rename cell types for readability}
+        \PY{n}{lesion\PYZus{}type\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Melanocytic Nevi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Melanoma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Benign Keratosis\PYZhy{}like Lesions }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bcc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basal Cell Carcinoma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{akiec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bowens Disease}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vasc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vascular Lesions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dermatofibroma}\PY{l+s+s1}{\PYZsq{}}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    Cells were assigned an ID to be used as a response variable later in the
+project.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} add column for path of image}
+        \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{path}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{imageid\PYZus{}path\PYZus{}dict}\PY{o}{.}\PY{n}{get}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} add column for cell types, for readability}
+        \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{lesion\PYZus{}type\PYZus{}dict}\PY{o}{.}\PY{n}{get}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} assign each cell type an ID and add it to a column}
+        \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Categorical}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{codes}
+\end{Verbatim}
+
+
+    Some introductory exploratory data analysis was performed in order to
+get a feel and general understanding for the data. This included use of
+the head, tail, and columns functions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} print first 5 values of dataframe}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+     lesion\_id      image\_id   dx dx\_type   age   sex localization  \textbackslash{}
+0  HAM\_0000118  ISIC\_0027419  bkl   histo  80.0  male        scalp   
+1  HAM\_0000118  ISIC\_0025030  bkl   histo  80.0  male        scalp   
+2  HAM\_0002730  ISIC\_0026769  bkl   histo  80.0  male        scalp   
+3  HAM\_0002730  ISIC\_0025661  bkl   histo  80.0  male        scalp   
+4  HAM\_0001466  ISIC\_0031633  bkl   histo  75.0  male          ear   
+
+                                      path                       cell\_type  \textbackslash{}
+0  HAM10000\_images\_part\_1\textbackslash{}ISIC\_0027419.jpg  Benign Keratosis-like Lesions    
+1  HAM10000\_images\_part\_1\textbackslash{}ISIC\_0025030.jpg  Benign Keratosis-like Lesions    
+2  HAM10000\_images\_part\_1\textbackslash{}ISIC\_0026769.jpg  Benign Keratosis-like Lesions    
+3  HAM10000\_images\_part\_1\textbackslash{}ISIC\_0025661.jpg  Benign Keratosis-like Lesions    
+4  HAM10000\_images\_part\_2\textbackslash{}ISIC\_0031633.jpg  Benign Keratosis-like Lesions    
+
+   cell\_type\_id  
+0             1  
+1             1  
+2             1  
+3             1  
+4             1  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} print first 5 values of dataframe}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+         lesion\_id      image\_id     dx dx\_type   age     sex localization  \textbackslash{}
+10010  HAM\_0002867  ISIC\_0033084  akiec   histo  40.0    male      abdomen   
+10011  HAM\_0002867  ISIC\_0033550  akiec   histo  40.0    male      abdomen   
+10012  HAM\_0002867  ISIC\_0033536  akiec   histo  40.0    male      abdomen   
+10013  HAM\_0000239  ISIC\_0032854  akiec   histo  80.0    male         face   
+10014  HAM\_0003521  ISIC\_0032258    mel   histo  70.0  female         back   
+
+                                          path       cell\_type  cell\_type\_id  
+10010  HAM10000\_images\_part\_2\textbackslash{}ISIC\_0033084.jpg  Bowens Disease             2  
+10011  HAM10000\_images\_part\_2\textbackslash{}ISIC\_0033550.jpg  Bowens Disease             2  
+10012  HAM10000\_images\_part\_2\textbackslash{}ISIC\_0033536.jpg  Bowens Disease             2  
+10013  HAM10000\_images\_part\_2\textbackslash{}ISIC\_0032854.jpg  Bowens Disease             2  
+10014  HAM10000\_images\_part\_2\textbackslash{}ISIC\_0032258.jpg        Melanoma             5  
+
+    \end{Verbatim}
+
+    This allows us to see the first and last 5 values of the metadata
+dataset, and get a general understanding of how the data is formatted.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} print column names}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['lesion\_id', 'image\_id', 'dx', 'dx\_type', 'age', 'sex', 'localization',
+       'path', 'cell\_type', 'cell\_type\_id'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} print columns and their data type}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} summary of numeric values}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+               age  cell\_type\_id
+count  9958.000000  10015.000000
+mean     51.863828      3.528208
+std      16.968614      1.377071
+min       0.000000      0.000000
+25\%      40.000000      4.000000
+50\%      50.000000      4.000000
+75\%      65.000000      4.000000
+max      85.000000      6.000000
+
+    \end{Verbatim}
+
+    While the mean age is calculated as 52, as the ages in the dataset are
+given in intervals of 5, this may not actually be a true representation
+of the ages. However, for our purposes with the dataset as long as the
+age is kept consistent throughout this is not a large issue, although in
+order to get a more precise model in a future project it may help to
+give the exact ages.
+
+    Despite images only being used for the final model, data cleaning was
+still used due to the methodologys structure and general good practise.
+While it was good practise, for my particular models these steps were
+irrelevant for training the models and optimising accuracy. The
+documentation for this data cleaning and commented code has been left in
+the report for reproducability. This also provides a basis for future
+work on the project if someone chose to include the meta data in their
+model, which may be beneficial for comparing image classification and
+extracting features from the image and classifying using the data.
+
+For data cleaning, it is often important to deal with null/NA values
+from data to remove redundant rows from the dataset. In this situation,
+as age was the only column with null values I opted to replace them with
+the mean value of the age column. In order to improve accuracy further,
+it may be worthwhile in a future project to look at other factors that
+my affect age and calculate the age based of of that e.g.~are certain
+ages more likely to have a certain cell type? While not null values, I
+removed any rows that had unknown values (prevalent in the sex and
+localization columns) to maximise information gain.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} gives us data types and how many values of each column are non\PYZhy{}null}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 10015 entries, 0 to 10014
+Data columns (total 10 columns):
+lesion\_id       10015 non-null object
+image\_id        10015 non-null object
+dx              10015 non-null object
+dx\_type         10015 non-null object
+age             9958 non-null float64
+sex             10015 non-null object
+localization    10015 non-null object
+path            10015 non-null object
+cell\_type       10015 non-null object
+cell\_type\_id    10015 non-null int8
+dtypes: float64(1), int8(1), object(8)
+memory usage: 714.0+ KB
+None
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} fill null values of age with the mean value of the age column}
+         \PY{c+c1}{\PYZsh{}metadata\PYZus{}df[\PYZdq{}age\PYZdq{}] = metadata\PYZus{}df[\PYZdq{}age\PYZdq{}].fillna(int(metadata\PYZus{}df[\PYZdq{}age\PYZdq{}].mean()))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} display unique values in cell type column}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{dx}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['bkl' 'nv' 'df' 'mel' 'vasc' 'bcc' 'akiec']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} display unique values in diagnosis column}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{dx\PYZus{}type}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['histo' 'consensus' 'confocal' 'follow\_up']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} display unique values in sex column}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{sex}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['male' 'female' 'unknown']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} drop rows where sex = unknown}
+         \PY{n}{metadata\PYZus{}df} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{sex}\PY{o}{!=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} display unique values in sex column}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{localization}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['scalp' 'ear' 'face' 'back' 'trunk' 'chest' 'upper extremity' 'abdomen'
+ 'unknown' 'lower extremity' 'genital' 'neck' 'hand' 'foot' 'acral']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} drop rows where localization = unknown}
+         \PY{n}{metadata\PYZus{}df} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{localization}\PY{o}{!=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Plotting the Data
+
+Data was plotted to allow further exploration in the dataset as well as
+giving the oppurtunity to spot any patterns that the dataset may
+contain.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} countplot of cell type}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{n}{data} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{,}
+                       \PY{n}{order} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Countplot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}                                 lesion\_id  image\_id    dx  dx\_type   age  \textbackslash{}
+         cell\_type                                                                  
+         Basal Cell Carcinoma                  514       514   514      514   514   
+         Benign Keratosis-like Lesions        1099      1099  1099     1099  1089   
+         Bowens Disease                        327       327   327      327   327   
+         Dermatofibroma                        115       115   115      115   115   
+         Melanocytic Nevi                     6705      6705  6705     6705  6660   
+         Melanoma                             1113      1113  1113     1113  1111   
+         Vascular Lesions                      142       142   142      142   142   
+         
+                                          sex  localization  path  cell\_type\_id  
+         cell\_type                                                               
+         Basal Cell Carcinoma             514           514   514           514  
+         Benign Keratosis-like Lesions   1099          1099  1099          1099  
+         Bowens Disease                   327           327   327           327  
+         Dermatofibroma                   115           115   115           115  
+         Melanocytic Nevi                6705          6705  6705          6705  
+         Melanoma                        1113          1113  1113          1113  
+         Vascular Lesions                 142           142   142           142  
+\end{Verbatim}
+            
+    Here we can see that there are a much larger amount of Melanocytic Nevi
+cells than any other type, with approximately 6 times more values then
+the next most frequent cell, melanoma. The least frequent cell type is
+Dermatofibroma. This means that there is a huge range of 6384. This is
+important to consider for the machine learning models, as it may lead to
+overfitting. For example, if the model was incorrect and predicted every
+image as Melanocytic Nevi, it would result in a high accuracy for the
+training data but low accuracy for the test data. This also stresses the
+importance of using a confusion matrix, as it allows me to verify the
+validity of my results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} countplot of diagnosis}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{n}{data} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{,}
+                       \PY{n}{order} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Countplot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A countplot of the diagnosis type was produced, which allows us to see
+how the cells in the images were diagnosed. Although this will not
+necessarily affect our results, it is worth noting that this gives us
+some insights into how the cancer is diagnosed and potential false
+diagnoses.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} histogram of age}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}b5034806\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}envs\textbackslash{}MLEnv3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}lib\textbackslash{}histograms.py:754: RuntimeWarning: invalid value encountered in greater\_equal
+  keep = (tmp\_a >= first\_edge)
+C:\textbackslash{}Users\textbackslash{}b5034806\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}envs\textbackslash{}MLEnv3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}lib\textbackslash{}histograms.py:755: RuntimeWarning: invalid value encountered in less\_equal
+  keep \&= (tmp\_a <= last\_edge)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    To see the age distribution of the dataset, a histogram was produced. As
+we can see, the majority of people are in the 40-60 range, with very few
+people under the age of 20 included in the dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} countplot of sex}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{n}{data} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{,}
+                       \PY{n}{order} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Countplot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} countplot of loalization}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{localization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{n}{data} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{,}
+                       \PY{n}{order} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{localization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Countplot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Data Reduction and Projection
+
+As neural networks are a natural choice for images and models excel
+without extracting the features, the metadata was not included for the
+final model and only the images were used.
+
+Choosing Function of Data Mining
+
+Using the background reading, it was clear that this is a classification
+problem and that the models should predict the cell type, similarly to
+the old artificial neural network discussed in the `Learning the
+application domain' section. The models will essentially be an expansion
+on that, with five more cell types.
+
+Choosing the data mining algorithm
+
+I have decided that CNN and VGG will be a natural fit for this project,
+as they are both convolutional neural networks which are a natural
+solution for image classification, and it allows me to compare a custom
+built model with a pre-defined model.
+
+Data mining
+
+The data mining process is discussed in depth throughout the discussion
+of the models:
+
+    Convolutional Neural Network
+
+CNNs are based upon neural networks in that they are based upon neurons.
+However, they differ from neural networks by taking in a multi chaneled
+image, which is suitable for our dataset as the images are RGB values
+which is read in as a 600x600x3 array, which equates to 3 chanels. CNNs
+are composed of convolutional, nonlinear, pooling and fully connected
+layers. The convolution layer works by convolving a filter around the
+image and computing element wise multiplications based upon the
+receptive field, which is summed up and repeated for each location on
+the image, which results in the feature map. This is how the model
+identified the features. The fully connected layer works by taking the
+high level features and associates these features with a class. In order
+to train a CNN, back propogation is used.
+
+    While all of the images are the same size and image resizing is not
+necessary, due to the timescale of the project it was essential for me
+to make the image sizes smaller to allow for faster run times, although
+this ultimately could affect the accuracy of the models due to a loss of
+data in the images. I have therefore tried to balance run time and
+accuracy, and resized the images to 1/3 of the original size. In the
+future, given a larger timescale/ better resources I would like to
+rexplore the dataset using the original image sizes and compare the
+accuracies and see if there is any significant differences between the
+original and rescaled images. While not directly applicable to our
+dataset, it is also important to note that padding is inefficient for
+classification problems, as it may cost some epochs for the neural
+network to calculate that there is no correlation in the black pixels
+using gradient descent (Howard, 2019).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{} change working directory for resizing}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Users}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b5034806}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Documents}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Machine\PYZhy{}Learning\PYZhy{}Extended\PYZhy{}Technical\PYZhy{}Project}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mletp}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{path}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} images scaled to 200x150, 1/3 of original size for CNN}
+         \PY{c+c1}{\PYZsh{}metadata\PYZus{}df[\PYZsq{}image\PYZsq{}] = metadata\PYZus{}df[\PYZsq{}path\PYZsq{}].map(lambda x: np.asarray(Image.open(x).resize((200, 150))))}
+         
+         \PY{c+c1}{\PYZsh{} change working directory back}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Users}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b5034806}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Documents}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Machine\PYZhy{}Learning\PYZhy{}Extended\PYZhy{}Technical\PYZhy{}Project}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mletp}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{src}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{} thanks to https://www.kaggle.com/kmader/dermatology\PYZhy{}mnist\PYZhy{}loading\PYZhy{}and\PYZhy{}processing}
+         \PY{c+c1}{\PYZsh{} plot some of the images}
+         \PY{n}{n\PYZus{}samples} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{m\PYZus{}axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{n\PYZus{}samples}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{n\PYZus{}samples}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{n\PYZus{}axs}\PY{p}{,} \PY{p}{(}\PY{n}{type\PYZus{}name}\PY{p}{,} \PY{n}{type\PYZus{}rows}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{m\PYZus{}axs}\PY{p}{,} 
+                                                  \PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n\PYZus{}axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{type\PYZus{}name}\PY{p}{)}
+             \PY{k}{for} \PY{n}{c\PYZus{}ax}\PY{p}{,} \PY{p}{(}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{c\PYZus{}row}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{n\PYZus{}axs}\PY{p}{,} \PY{n}{type\PYZus{}rows}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{66}\PY{p}{)}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{c\PYZus{}ax}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{c\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{c\PYZus{}ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category\PYZus{}samples.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The predictor variables and response variable were split, so that the
+model would attempt to learn what cell type was in the image i.e.~the
+image ID.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{c+c1}{\PYZsh{} get predictor variables and add them to a dataframe}
+         \PY{n}{predictor} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} get response variables and add them to a series}
+         \PY{n}{response} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    It was important to find a good balance between the training and test
+split, as a split too large will result in greater performance statistic
+variance, whereas a split too small will result in greater parameter
+estimate variance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{c+c1}{\PYZsh{} create training and test data for x and y variables at a 75:25 ratio}
+         \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{predictor}\PY{p}{,} \PY{n}{response}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{66}\PY{p}{)}
+\end{Verbatim}
+
+
+    Data was normalised to get the values on a common scale, while also not
+distorting the differences in the range.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} normalise data}
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}train} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}test} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{c+c1}{\PYZsh{} split data into training and validation data set at a 70:30 ratio}
+         \PY{c+c1}{\PYZsh{}x\PYZus{}train, x\PYZus{}validate, y\PYZus{}train, y\PYZus{}validate = train\PYZus{}test\PYZus{}split(x\PYZus{}train, y\PYZus{}train, test\PYZus{}size = 0.3, random\PYZus{}state = 66)}
+\end{Verbatim}
+
+
+    One hot encoding was performed on the labels in order to allow the
+models to bypass the issue of categorical values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{c+c1}{\PYZsh{} one hot encoding}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+    A canal value of 3 was used for the convolutional layer, as previously
+explained in the `Convolutional Neural Network' section.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{c+c1}{\PYZsh{} canal value of 3 as images are RGB}
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{*}\PY{p}{(}\PY{l+m+mi}{75}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{*}\PY{p}{(}\PY{l+m+mi}{75}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} thanks to https://github.com/yuguan1/example\PYZhy{}ML\PYZhy{}code/blob/master/DL1/CNN.ipynb}
+         \PY{c+c1}{\PYZsh{} set the CNN model }
+         \PY{n}{input\PYZus{}shape} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{75}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{nClasses} \PY{o}{=} \PY{l+m+mi}{7}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{n}{input\PYZus{}shape}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{nClasses}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#   
+=================================================================
+conv2d\_9 (Conv2D)            (None, 73, 98, 32)        896       
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_9 (MaxPooling2 (None, 36, 49, 32)        0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_10 (Conv2D)           (None, 34, 47, 64)        18496     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_10 (MaxPooling (None, 17, 23, 64)        0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dropout\_9 (Dropout)          (None, 17, 23, 64)        0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+flatten\_5 (Flatten)          (None, 25024)             0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_9 (Dense)              (None, 128)               3203200   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dropout\_10 (Dropout)         (None, 128)               0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_10 (Dense)             (None, 7)                 903       
+=================================================================
+Total params: 3,223,495
+Trainable params: 3,223,495
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    The adam optimiser is a generalised optimizer that works for many
+models, and is particularly efficient for deep learning.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} compile the model}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{categorical\PYZus{}crossentropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    A learning rate annealer was used to stablise the learning rate. This
+was used as initially, the learning rate is too high which causes a high
+variance in accuracy and therefore divergant results. Stabilising the
+learning rate over time reduces the impact of this. It is also worth
+noting that having the learning rate too slow would require many epochs
+before reaching the minimum point on the gradient descent.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{c+c1}{\PYZsh{} Set a learning rate annealer}
+         \PY{n}{learning\PYZus{}rate\PYZus{}reduction} \PY{o}{=} \PY{n}{ReduceLROnPlateau}\PY{p}{(}\PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                     \PY{n}{patience}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} 
+                                                     \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                                     \PY{n}{factor}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                                                     \PY{n}{min\PYZus{}lr}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}
+\end{Verbatim}
+
+
+    Data augmentation is used to prevent overfitting. As the dataset is not
+particularly large, data augmentation helps to prevent overfitting by
+generating relevant images with slight variations, to provide more data
+for the dataset and the variations help to encourage generalisation and
+therefore reduces the likelihood of overfitting.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} data augmentation}
+         
+         \PY{n}{datagen} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}
+                 \PY{n}{rotation\PYZus{}range}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly rotate images in the range (degrees, 0 to 180)}
+                 \PY{n}{horizontal\PYZus{}flip}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly flip images}
+                 \PY{n}{vertical\PYZus{}flip}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}  \PY{c+c1}{\PYZsh{} randomly flip images}
+         
+         \PY{n}{datagen}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    `It has been observed in practice that when using a larger batch there
+is a significant degradation in the quality of the model\ldots{}'
+(Keskar, Mudigere, Nocedal, Smelyanskiy and Tang, 2016). After reading
+this paper, it was clear that increasing the batch size too much would
+not be good, due to generalization. Too low of a batch size would result
+in a low accuracy and a slow computational process. It is also important
+to consider that there may be interactions with other hyperparameters.
+Therefore, epochs and batch sizes were experimented with to find the
+best balance between accuracy and speed.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{} train the model CNN RESULTS}
+         \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{30} 
+         \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{16}
+         \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit\PYZus{}generator}\PY{p}{(}\PY{n}{datagen}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{,}
+                                       \PY{n}{epochs} \PY{o}{=} \PY{n}{epochs}\PY{p}{,} \PY{n}{validation\PYZus{}data} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}
+                                       \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{steps\PYZus{}per\PYZus{}epoch}\PY{o}{=}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{n}{batch\PYZus{}size}
+                                       \PY{p}{,} \PY{n}{callbacks}\PY{o}{=}\PY{p}{[}\PY{n}{learning\PYZus{}rate\PYZus{}reduction}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/30
+469/469 [==============================] - 10s 22ms/step - loss: 0.9886 - acc: 0.6671 - val\_loss: 8.4592 - val\_acc: 0.3990s - loss: 1.1878 - - ETA:
+Epoch 2/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.8769 - acc: 0.6903 - val\_loss: 5.2785 - val\_acc: 0.6725 ETA: 0s - loss: 0.8821 -  - ETA: 0s - loss: 0.8774 - acc: 0.
+Epoch 3/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.8237 - acc: 0.7045 - val\_loss: 5.1420 - val\_acc: 0.5300
+Epoch 4/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.7886 - acc: 0.7161 - val\_loss: 5.5552 - val\_acc: 0.5016
+Epoch 5/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.7739 - acc: 0.7290 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+Epoch 00005: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+Epoch 6/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.7217 - acc: 0.7357 - val\_loss: 6.3815 - val\_acc: 0.5915
+Epoch 7/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.7011 - acc: 0.7442 - val\_loss: 5.3121 - val\_acc: 0.6685
+Epoch 8/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6904 - acc: 0.7504 - val\_loss: 8.5838 - val\_acc: 0.42056909 - a - ETA: 2s - loss: 0.6924 - ETA: 1s
+
+Epoch 00008: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+Epoch 9/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6638 - acc: 0.7533 - val\_loss: 5.3217 - val\_acc: 0.6649
+Epoch 10/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6513 - acc: 0.7546 - val\_loss: 5.4703 - val\_acc: 0.6585
+Epoch 11/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6464 - acc: 0.7642 - val\_loss: 5.5988 - val\_acc: 0.6494
+
+Epoch 00011: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+Epoch 12/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6308 - acc: 0.7632 - val\_loss: 5.3329 - val\_acc: 0.6677
+Epoch 13/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6203 - acc: 0.7709 - val\_loss: 5.3173 - val\_acc: 0.6693 - loss: 
+Epoch 14/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6209 - acc: 0.7672 - val\_loss: 5.3793 - val\_acc: 0.6637
+
+Epoch 00014: ReduceLROnPlateau reducing learning rate to 6.25000029685907e-05.
+Epoch 15/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6051 - acc: 0.7700 - val\_loss: 5.3441 - val\_acc: 0.6661
+Epoch 16/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6184 - acc: 0.7683 - val\_loss: 5.3557 - val\_acc: 0.6657
+Epoch 17/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6021 - acc: 0.7724 - val\_loss: 5.3636 - val\_acc: 0.6645
+
+Epoch 00017: ReduceLROnPlateau reducing learning rate to 3.125000148429535e-05.
+Epoch 18/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6001 - acc: 0.7764 - val\_loss: 5.3480 - val\_acc: 0.6669
+Epoch 19/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.6009 - acc: 0.7742 - val\_loss: 5.3488 - val\_acc: 0.6669
+Epoch 20/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5999 - acc: 0.7796 - val\_loss: 5.3312 - val\_acc: 0.6677
+
+Epoch 00020: ReduceLROnPlateau reducing learning rate to 1.5625000742147677e-05.
+Epoch 21/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5906 - acc: 0.7768 - val\_loss: 5.3433 - val\_acc: 0.6661
+Epoch 22/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5878 - acc: 0.7794 - val\_loss: 5.3707 - val\_acc: 0.6649
+Epoch 23/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5915 - acc: 0.7784 - val\_loss: 5.3654 - val\_acc: 0.6653
+
+Epoch 00023: ReduceLROnPlateau reducing learning rate to 1e-05.
+Epoch 24/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5939 - acc: 0.7806 - val\_loss: 5.3728 - val\_acc: 0.6649
+Epoch 25/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5927 - acc: 0.7801 - val\_loss: 5.3644 - val\_acc: 0.6645
+Epoch 26/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5869 - acc: 0.7802 - val\_loss: 5.3664 - val\_acc: 0.6657
+Epoch 27/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5838 - acc: 0.7755 - val\_loss: 5.3661 - val\_acc: 0.6653
+Epoch 28/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5990 - acc: 0.7771 - val\_loss: 5.3732 - val\_acc: 0.6653
+Epoch 29/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5885 - acc: 0.7794 - val\_loss: 5.3747 - val\_acc: 0.6649
+Epoch 30/30
+469/469 [==============================] - 10s 21ms/step - loss: 0.5778 - acc: 0.7894 - val\_loss: 5.3748 - val\_acc: 0.6649
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{} thanks to https://www.kaggle.com/sid321axn/step\PYZhy{}wise\PYZhy{}approach\PYZhy{}cnn\PYZhy{}model\PYZhy{}77\PYZhy{}0344\PYZhy{}accuracy}
+          \PY{c+c1}{\PYZsh{} function to plot model\PYZsq{}s validation loss and validation accuracy}
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}model\PYZus{}history}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fig}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} summarize history for accuracy}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} summarize history for loss}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+              \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{plot\PYZus{}model\PYZus{}history}\PY{p}{(}\PY{n}{history}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From this plot we can immediately see how the learning rate annealer
+affects the model. Initially there are huge spikes in the accuracy for
+the test data, although after some epochs this stablises roughly at its
+peak (Approx 66\%) due to the learning rate being reduced. This also
+applies to the test data's loss, which we can see stablises at the same
+Epoch as the accuracy. While the accuracy score is okay, the loss value
+is incredibly high and suggests that a lot of errors are being made
+every epoch, which may be due to the overfitting which will be explored
+with the next plot.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{} thanks to https://www.kaggle.com/sid321axn/step\PYZhy{}wise\PYZhy{}approach\PYZhy{}cnn\PYZhy{}model\PYZhy{}77\PYZhy{}0344\PYZhy{}accuracy}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+          
+          \PY{n}{confusion} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}true}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Function to plot confusion matrix    }
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{classes}\PY{p}{,}
+                                    \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                                    \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                    \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Blues}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    This function prints and plots the confusion matrix.}
+          \PY{l+s+sd}{    Normalization can be applied by setting `normalize=True`.}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+              \PY{n}{tick\PYZus{}marks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{)}
+          
+              \PY{k}{if} \PY{n}{normalize}\PY{p}{:}
+                  \PY{n}{cm} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{n}{cm}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+          
+              \PY{n}{thresh} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}
+              \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{,}
+                           \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{thresh} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+              \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{confusion}\PY{p}{,} \PY{n}{classes} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-104-e8c4038ddc62> in <module>
+         34     plt.xlabel('Predicted label')
+         35 
+    ---> 36 plot\_confusion\_matrix(confusion, classes = range(7))
+    
+
+        <ipython-input-104-e8c4038ddc62> in plot\_confusion\_matrix(cm, classes, normalize, title, cmap)
+         25 
+         26     thresh = cm.max() / 2.
+    ---> 27     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+         28         plt.text(j, i, cm[i, j],
+         29                  horizontalalignment="center",
+    
+
+        NameError: name 'itertools' is not defined
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Unfortunately, the confusion matrix confirms that the model has been
+overfitted, as the model is only predicted for cell id 4, Melanocytic
+Nevi, which was previously discussed to potentially cause overfitting.
+As there is a significantly higher amount of Melanocytic Nevi than any
+other cell, the machine gets into the habit of only predicting these
+values, which likely explains the high loss experienced in the model.
+
+    VGG Neural Network
+
+The VGG Neural Network is a pre-defined neural network which was
+developed by 2 Oxford Students for a neural network competition, and
+received first place for image identification and 2nd place for image
+classification. It is popular for being a very efficient CNN and
+therefore in theory should perform better than the custom built CNN.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} change working directory for resizing}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Users}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b5034806}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Documents}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Machine\PYZhy{}Learning\PYZhy{}Extended\PYZhy{}Technical\PYZhy{}Project}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mletp}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} images rescaled to 224x224 for VGG}
+         \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{path}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{,}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} change working directory back}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Users}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b5034806}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Documents}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{Machine\PYZhy{}Learning\PYZhy{}Extended\PYZhy{}Technical\PYZhy{}Project}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mletp}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{src}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} get predictor variables and add them to a dataframe}
+         \PY{n}{predictor} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} get response variables and add them to a series}
+         \PY{n}{response} \PY{o}{=} \PY{n}{metadata\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cell\PYZus{}type\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} create training and test data for x and y variables at a 75:25 ratio}
+         \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{predictor}\PY{p}{,} \PY{n}{response}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{66}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} normalise data}
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}train} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}test} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Perform one\PYZhy{}hot encoding on the labels}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} reshape images for VGG}
+         \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{*}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{,} \PY{l+m+mi}{224}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{*}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{,} \PY{l+m+mi}{224}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} thanks to https://engmrk.com/vgg16\PYZhy{}implementation\PYZhy{}using\PYZhy{}keras/}
+         \PY{c+c1}{\PYZsh{} set the VGG model}
+         \PY{n}{input\PYZus{}shape} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{224}\PY{p}{,} \PY{l+m+mi}{224}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{[}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{n}{input\PYZus{}shape}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+             \PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{4096}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{4096}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#   
+=================================================================
+conv2d\_1 (Conv2D)            (None, 224, 224, 64)      1792      
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_2 (Conv2D)            (None, 224, 224, 64)      36928     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_1 (MaxPooling2 (None, 112, 112, 64)      0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_3 (Conv2D)            (None, 112, 112, 128)     73856     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_4 (Conv2D)            (None, 112, 112, 128)     147584    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_2 (MaxPooling2 (None, 56, 56, 128)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_5 (Conv2D)            (None, 56, 56, 256)       295168    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_6 (Conv2D)            (None, 56, 56, 256)       590080    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_7 (Conv2D)            (None, 56, 56, 256)       590080    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_3 (MaxPooling2 (None, 28, 28, 256)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_8 (Conv2D)            (None, 28, 28, 512)       1180160   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_9 (Conv2D)            (None, 28, 28, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_10 (Conv2D)           (None, 28, 28, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_4 (MaxPooling2 (None, 14, 14, 512)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_11 (Conv2D)           (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_12 (Conv2D)           (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_13 (Conv2D)           (None, 14, 14, 512)       2359808   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_5 (MaxPooling2 (None, 7, 7, 512)         0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+flatten\_1 (Flatten)          (None, 25088)             0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_1 (Dense)              (None, 4096)              102764544 
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_2 (Dense)              (None, 4096)              16781312  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_3 (Dense)              (None, 7)                 28679     
+=================================================================
+Total params: 134,289,223
+Trainable params: 134,289,223
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} compile the model}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{categorical\PYZus{}crossentropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Set a learning rate annealer}
+         \PY{n}{learning\PYZus{}rate\PYZus{}reduction} \PY{o}{=} \PY{n}{ReduceLROnPlateau}\PY{p}{(}\PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                     \PY{n}{patience}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} 
+                                                     \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                                     \PY{n}{factor}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                                                     \PY{n}{min\PYZus{}lr}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} data augmentation}
+         
+         \PY{n}{datagen} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}
+                 \PY{n}{rotation\PYZus{}range}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly rotate images in the range (degrees, 0 to 180)}
+                 \PY{n}{horizontal\PYZus{}flip}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly flip images}
+                 \PY{n}{vertical\PYZus{}flip}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}  \PY{c+c1}{\PYZsh{} randomly flip images}
+         
+         \PY{n}{datagen}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} train the model VGG RESULTS}
+         \PY{c+c1}{\PYZsh{} epochs reduced and batch size increased due to slow runtime}
+         \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{32}
+         \PY{n}{history2} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit\PYZus{}generator}\PY{p}{(}\PY{n}{datagen}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{,}
+                                       \PY{n}{epochs} \PY{o}{=} \PY{n}{epochs}\PY{p}{,} \PY{n}{validation\PYZus{}data} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}
+                                       \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{steps\PYZus{}per\PYZus{}epoch}\PY{o}{=}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{n}{batch\PYZus{}size}
+                                       \PY{p}{,} \PY{n}{callbacks}\PY{o}{=}\PY{p}{[}\PY{n}{learning\PYZus{}rate\PYZus{}reduction}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/20
+234/234 [==============================] - 128s 546ms/step - loss: 5.3229 - acc: 0.6671 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 2/20
+234/234 [==============================] - 118s 506ms/step - loss: 5.3433 - acc: 0.6685 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 3/20
+234/234 [==============================] - 117s 501ms/step - loss: 5.3261 - acc: 0.6696 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 4/20
+234/234 [==============================] - 117s 502ms/step - loss: 5.3613 - acc: 0.6674 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+Epoch 00004: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+Epoch 5/20
+234/234 [==============================] - 117s 501ms/step - loss: 5.3179 - acc: 0.6701 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 6/20
+234/234 [==============================] - 118s 503ms/step - loss: 5.3665 - acc: 0.6670 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 7/20
+234/234 [==============================] - 117s 501ms/step - loss: 5.3214 - acc: 0.6698 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+Epoch 00007: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+Epoch 8/20
+234/234 [==============================] - 117s 501ms/step - loss: 5.3574 - acc: 0.6676 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 9/20
+234/234 [==============================] - 116s 498ms/step - loss: 5.3243 - acc: 0.6697 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 10/20
+234/234 [==============================] - 117s 498ms/step - loss: 5.3720 - acc: 0.6667 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+Epoch 00010: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+Epoch 11/20
+234/234 [==============================] - 117s 499ms/step - loss: 5.2930 - acc: 0.6716 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 12/20
+234/234 [==============================] - 117s 498ms/step - loss: 5.4225 - acc: 0.6636 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 13/20
+234/234 [==============================] - 116s 497ms/step - loss: 5.2912 - acc: 0.6717 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+Epoch 00013: ReduceLROnPlateau reducing learning rate to 6.25000029685907e-05.
+Epoch 14/20
+234/234 [==============================] - 117s 499ms/step - loss: 5.3511 - acc: 0.6680 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 15/20
+234/234 [==============================] - 117s 498ms/step - loss: 5.3273 - acc: 0.6695 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 16/20
+234/234 [==============================] - 117s 500ms/step - loss: 5.3481 - acc: 0.6682 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+Epoch 00016: ReduceLROnPlateau reducing learning rate to 3.125000148429535e-05.
+Epoch 17/20
+234/234 [==============================] - 117s 499ms/step - loss: 5.3257 - acc: 0.6696 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 18/20
+234/234 [==============================] - 116s 497ms/step - loss: 5.3175 - acc: 0.6701 - val\_loss: 5.2847 - val\_acc: 0.6721
+Epoch 19/20
+234/234 [==============================] - 116s 498ms/step - loss: 5.2955 - acc: 0.6715 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+Epoch 00019: ReduceLROnPlateau reducing learning rate to 1.5625000742147677e-05.
+Epoch 20/20
+234/234 [==============================] - 116s 497ms/step - loss: 5.4040 - acc: 0.6647 - val\_loss: 5.2847 - val\_acc: 0.6721
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} thanks to https://www.kaggle.com/sid321axn/step\PYZhy{}wise\PYZhy{}approach\PYZhy{}cnn\PYZhy{}model\PYZhy{}77\PYZhy{}0344\PYZhy{}accuracy}
+         \PY{c+c1}{\PYZsh{} function to plot model\PYZsq{}s validation loss and validation accuracy}
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}model\PYZus{}history}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{p}{)}\PY{p}{:}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} summarize history for accuracy}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} summarize history for loss}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{plot\PYZus{}model\PYZus{}history}\PY{p}{(}\PY{n}{history2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Even though VGG was not successful in working with the test data, we are
+still able to perform an analysis on the training data. Despite
+providing data annealing, the variation is high throughout every epoch
+suggesting that the learning rate was still too high, and data annealing
+needed to be applied more aggressively. On the other hand, you can
+actually see that the variance is only for a very small range and in
+reality the learning rate may not have been high enough to begin with.
+Even though the accuracy lies at a respectable 67.21\%, as the
+validation accuracy and loss are flat it is likely that the model does
+not work as intended and the model is not actually learning anything
+about the images over time. This could potentially be explained to a
+very low training rate, and is something to keep in consideration for
+future implementation of VGG for this dataset. Due to VGG being quite
+demanding in terms of resources and taking large amounts of time each
+time the model is trained it was not possible to tune the parameters in
+many ways and try to `fix' the model. This is something that can be
+explored in future projects.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} thanks to https://www.kaggle.com/sid321axn/step\PYZhy{}wise\PYZhy{}approach\PYZhy{}cnn\PYZhy{}model\PYZhy{}77\PYZhy{}0344\PYZhy{}accuracy}
+         
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+         
+         \PY{n}{confusion} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}true}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Function to plot confusion matrix    }
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{classes}\PY{p}{,}
+                                   \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                                   \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Blues}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    This function prints and plots the confusion matrix.}
+         \PY{l+s+sd}{    Normalization can be applied by setting `normalize=True`.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tick\PYZus{}marks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{)}
+         
+             \PY{k}{if} \PY{n}{normalize}\PY{p}{:}
+                 \PY{n}{cm} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{n}{cm}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         
+             \PY{n}{thresh} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{,}
+                          \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{thresh} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{confusion}\PY{p}{,} \PY{n}{classes} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-42-e8c4038ddc62> in <module>
+         34     plt.xlabel('Predicted label')
+         35 
+    ---> 36 plot\_confusion\_matrix(confusion, classes = range(7))
+    
+
+        <ipython-input-42-e8c4038ddc62> in plot\_confusion\_matrix(cm, classes, normalize, title, cmap)
+         25 
+         26     thresh = cm.max() / 2.
+    ---> 27     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+         28         plt.text(j, i, cm[i, j],
+         29                  horizontalalignment="center",
+    
+
+        NameError: name 'itertools' is not defined
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The confusion matrix for VGG is very similar to that of the custom built
+CNN, and also suggests that the model is overfitted, potentially giving
+an explanation for the results that were gathered.
+
+    Interpretation
+
+While it is likely that the results are not accurate, a comparison will
+still be made with the assumption that the results are `correct'. Only
+the test data is compared, as training data results are not very
+relevant for comparisons between models. While the custom built CNN ends
+with an accuracy of 66.49\%, VGG ends with the slightly higher accuracy
+of 67.21\%. Similarly, the custom built CNN ends with a loss of 5.3748,
+whereas VGG ends with a loss of 5.2847. Taking both of these into
+account, VGG has the highest accuracy and lowest loss by a small margin,
+making it slightly better than the custom built model. It is also worth
+noting that it was significantly slower to train VGG than the custom
+built CNN, and so if the dataset is large enough it may be worth the
+tradeoff for a small amount of optimisation in loss and accuracy to get
+much faster run times. However, to reiterate, it is likely that the
+models are not working as intended and these results should be treated
+cautiously.
+
+    How Successful was my Project?
+
+While a conclusion was met that satisfied the initial goal, the project
+may be deemed as unsuccesful as the models are likely not functioning as
+intended. However, I would argue that the project has seen success in
+many ways. For example, the groundwork has been layed out for anyone to
+pick up the project, add in a model of their choosing that they would
+like to compare, fine-tune the hyperparameters and use the tools
+provided such as the graphs for the models and confusion matrices for a
+comparison between any model. Another example would be that I have not
+yet discovered an attempt for an implementation of VGG on this dataset,
+and therefore the groundwork has also been layed out for the projects
+code to be tuned in such a way that VGG may receive more desireable
+results.
+
+If using `The Logical Framework Method for Defining Project Success'
+(Baccarini, 1999), the project can be deemed a failure in terms of
+`project management success' as the original `deliverable' was not
+achieved as desired. However, the project success can be deemed as a
+success as groundwork has been provided for future work in this area and
+although it was not the original deliverable, a successful output has
+been produce. The paper also makes a very good point about success not
+being `black or white' and it may be more suitable to deem this project
+as a partial success.
+
+In the future, I believe that a large scale comparison is needed, as if
+the `most efficient' model is found, it could potentially be used in
+place of diagnosing by eye providing automated and fast diagnoses for
+dermatoscopic images.
+
+    Reflection
+
+This project also introduced me to many new technologies, which has been
+a pleasure. As this was my first large project with python, it was nice
+to learn a new programming language and the strengths and weaknesses
+that it comes with. Python was a very successful language for machine
+learning as it is widely supported and relatively simple to pick up, key
+for the short time scale of the project. As a Data Scientist, I believe
+that both Python and R will prove to be useful tools to use in future
+projects as they excel in many tasks that are required of data science
+projects. Anaconda was a great way to produce environments for the
+project and easily download and manage the packages required for the
+code. Jupyter Notebooks was a great tool for producing markdown
+documents such as this one, and provides numerous advantages and
+disadvantages over R, such as code being much easier to manage in my
+opinion, but also a lot more tedious to use with the natural
+implementation of cells for programming. Cookie cutter lacks the
+automation that Project Template provides, although it adds a lot more
+customisation in that there are a huge amount of premade directories
+online, which allowed me to find the data science cookie cutter build
+which worked well for this project.
+
+KDD was much more successful for this project than the cloud computing
+project, as it utilised all of the steps (cloud computing did not make
+use of the three data mining steps). However, that is not to say that it
+did not come without issues. As previously mentioned, the linearity of
+KDD can result in wasted time, or if followed precisely with no going
+back between steps can actually force a project to stop before starting
+another `cycle' after the interpretation phase.
+
+Ironically, the most straightforward part was likely implementing the
+models themselves (Although not to much success), as there are many
+existing frameworks that you can base yours off of. The most difficult
+part of the project for me was editing the models and data in a way such
+that accuracy and loss are optimised. When given a large dataset such as
+this one computation times can be quite slow which does not give many
+attempts at fine tuning the models.
+
+For future projects, it is always worth following a methodology as it
+provides a natural work flow and clear objectives to achieve your goal,
+although I would like to explore a new methodology in my next project
+such as AGILE or SCRUM. It may also be worth considering my
+strengths/weaknesses for future projects, as while I attempted to tackle
+a quite difficult dataset in domains I have never worked with before
+(Medical and images for machine learning) which definitely improved my
+skills and abilities, it also led to the original goal not being met.
+Therefore, rather than taking on a whole new area at once, it may be
+wise to approach a project with more caution.
+
+    References
+
+Tschandl, P., Rosendahl, C. and Kittler, H. (2018). The HAM10000
+dataset, a large collection of multi-source dermatoscopic images of
+common pigmented skin lesions. Scientific Data, 5, p.180161.
+
+Howard, J. (2019). fast.ai · Making neural nets uncool again.
+{[}online{]} Fast.ai. Available at: https://www.fast.ai/ {[}Accessed 22
+Jan.~2019{]}.
+
+Keskar, N.S., Mudigere, D., Nocedal, J., Smelyanskiy, M. and Tang,
+P.T.P., 2016. On large-batch training for deep learning: Generalization
+gap and sharp minima. arXiv preprint arXiv:1609.04836.
+
+Caruana, R. and Niculescu-Mizil, A. (2006). An empirical comparison of
+supervised learning algorithms. Proceedings of the
+
+23rd international conference on Machine learning - ICML '06.
+
+Simonyan, K. and Zisserman, A., 2014. Very deep convolutional networks
+for large-scale image recognition. arXiv preprint arXiv:1409.1556.
+
+Medium. (2019). The best explanation of Convolutional Neural Networks on
+the Internet!. {[}online{]} Available at:
+https://medium.com/technologymadeeasy/the-best-explanation-of-convolutional-neural-networks-on-the-internet-fbb8b1ad5df8
+{[}Accessed 23 Jan.~2019{]}.
+
+Medium. (2019). Cookiecutter Data Science --- Organize your Projects ---
+Atom and Jupyter. {[}online{]} Available at:
+https://medium.com/@rrfd/cookiecutter-data-science-organize-your-projects-atom-and-jupyter-2be7862f487e
+{[}Accessed 7 Jan. 2019{]}.
+
+Deshpande, A. (2019). A Beginner's Guide To Understanding Convolutional
+Neural Networks. {[}online{]} Adeshpande3.github.io. Available at:
+https://adeshpande3.github.io/A-Beginner\%27s-Guide-To-Understanding-Convolutional-Neural-Networks/
+{[}Accessed 24 Jan.~2019{]}.
+
+Baccarini, D. (1999). The Logical Framework Method for Defining Project
+Success. Project Management Journal, 30(4), pp.25-32.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
